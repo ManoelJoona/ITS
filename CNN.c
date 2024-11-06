@@ -6,12 +6,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-int affeine(int a[],int w[][]) {
+void affeine(int a[],double w[][]) {
     int i, j;
 
     srand((unsigned)time(NULL));   /* 乱数の種をtime からとる（乱数の初期化） */
 
-    for (i = 0; i < 2; i++) {      /* 重み（０～１） */
+    for (i = 0; i < 2; i++) {      /* 重み（０～０．９）（０．１刻み） */
         for (j = 0; j < 3; j++) {
             double w[i][j] = {(rand() % 10) / 10};
         }
