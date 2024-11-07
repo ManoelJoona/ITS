@@ -63,4 +63,7 @@ int main(void){
     lv2->layer = l2;
     lv3->layer = l3;
 
+    lv1->next = lv2;                          /*構造体Layer_vecの lv1 のメンバーnextに構造体Layer_vecの lv2を代入 */
+    lv2->next = lv3;
+
 }
