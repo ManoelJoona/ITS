@@ -11,8 +11,8 @@ typedef struct node{        /* 一つのnode */
 } Node;
 
 typedef struct edge{        /* 一本のedge */
-    Node* lhs;   /* nodeのアドレスを入れる場所 */
-    Node* rhs;   /* nodeのアドレスを入れる場所 */
+    Node* lhs;            /* nodeのアドレスを入れる場所 */
+    Node* rhs;            /* nodeのアドレスを入れる場所 */
     float weight;
 } Edge;
 
@@ -42,9 +42,9 @@ int main(void){
     Layer *l2 = malloc(sizeof(Layer));
     Layer *l3 = malloc(sizeof(Layer));
 
-    Layer_vec *lv1 = malloc(sizeof(Layer));   /* "Nodeの縦方向のカタマリ" の横方向のカタマリを記録する魔法の場所を確保 */
-    Layer_vec *lv2 = malloc(sizeof(Layer));
-    Layer_vec *lv3 = malloc(sizeof(Layer));
+    Layer_vec *lv1 = malloc(sizeof(Layer_vec));   /* "Nodeの縦方向のカタマリ" の横方向のカタマリを記録する魔法の場所を確保 */
+    Layer_vec *lv2 = malloc(sizeof(Layer_vec));
+    Layer_vec *lv3 = malloc(sizeof(Layer_vec));
 
 
     n1->value = 3;                            /*--- 構造体Nodeの n1 のメンバーvalueに 3 を代入（3は仮の値） ---*/
@@ -65,5 +65,36 @@ int main(void){
 
     lv1->next = lv2;                          /*構造体Layer_vecの lv1 のメンバーnextに構造体Layer_vecの lv2を代入 */
     lv2->next = lv3;
+
+
+    int i = 0;
+    Node *lhs;
+    Node *rhs;
+    Edge_layer *head;
+    Edge_layer *tail;
+    while (lhs != NULL && rhs != NULL) {     /* lhsとrhsのどちらかがNALLならばループを終了 */
+        Edge *e = malloc(sizeof(Edge));
+        Node *lhs = malloc(sizeof(Node));
+        Node *rhs = malloc(sizeof(Node));
+
+        lhs->value = 1;
+        rhs->value = 2;
+        e->lhs = lhs;
+        e->rhs = rhs;
+
+        tail->next = tail;
+
+        i++;
+    }
+
+    int edge_group[i];           /* edgeの層 */
+
+    Edge_layer *el1 = malloc(sizeof(Edge_layer));
+    Edge_layer *el2 = malloc(sizeof(Edge_layer));
+
+    el1->edge = e1;
+    el2->edge = e2;
+
+    el1->next = el2;
 
 }
