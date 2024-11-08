@@ -6,29 +6,29 @@
 #include <stdlib.h>
 
 
-typedef struct node{        /* 一つのnode */
+typedef struct node {        /* 一つのnode */
     float value;
 } Node;
 
-typedef struct edge{        /* 一本のedge */
+typedef struct edge {        /* 一本のedge */
     Node* lhs;            /* nodeのアドレスを入れる場所 */
     Node* rhs;            /* nodeのアドレスを入れる場所 */
     float weight;
 } Edge;
 
-typedef struct nodevec{     /* nodeの縦方向のカタマリ */
+typedef struct nodevec {     /* nodeの縦方向のカタマリ */
     Node* node;
-    Layer* next;
+    struct nodevec* next;
 } Layer;
 
-typedef struct Layer_vec{   /* "nodeの縦方向のカタマリ" の横方向のカタマリ */
+typedef struct Layer_vec {   /* "nodeの縦方向のカタマリ" の横方向のカタマリ */
     Layer* layer;
-    Layer_vec* next;
+    struct Layer_vec* next;
 } Layer_vec;
 
-typedef struct edgevec{     /* "edgeの縦方向のカタマリ" の横方向のカタマリ */
+typedef struct edgevec {     /* "edgeの縦方向のカタマリ" の横方向のカタマリ */
     Edge** edge;          /* edgeの配列を指すポインタ */
-    Edge_layer* next;
+    struct edgevec* next;
 } Edge_layer;
 
 
@@ -50,6 +50,7 @@ int main(void){
 
     Layer_vec *lv1 = malloc(sizeof(Layer_vec));   /* "Nodeの縦方向のカタマリ" の横方向のカタマリを記録する魔法の場所を確保 */
 
+/* Node */
 
     n1->value = 3;                            /*--- 構造体Nodeの n1 のメンバーvalueに 3 を代入（3は仮の値） ---*/
     n2->value = 4;
@@ -123,14 +124,19 @@ int main(void){
 
         // tail->next = tail;
 
+        Edge_layer *el1 = malloc(sizeof(Edge_layer));      /* "edgeの縦方向のカタマリ" の横方向のカタマリを記録する魔法の場所を確保 */
+
+        el1->edge = e;                                     /* 構造体Edge_layerの lv1 のメンバーlayerに構造体Layerの l1を代入 */
+        el1->next = el1;                                   /* 構造体Edge_layerの lv1 のメンバーnextに構造体Edge?layerの el1を代入 */
+
         i++;
     }
 
-    int edge_group1[i];           /* edgeの層 */
+    // int edge_group1[i];           /* edgeの層 */
 
-    Edge_layer *el1 = malloc(sizeof(Edge_layer));
+    // Edge_layer *el1 = malloc(sizeof(Edge_layer));
 
-    el1->edge = e;
+    // el1->edge = e;
 
     
 }
