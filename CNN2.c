@@ -6,27 +6,27 @@
 #include <stdlib.h>
 
 
-typedef struct node{        /* 一つのnode */
+typedef struct node {        /* 一つのnode */
     float value;
 } Node;
 
-typedef struct edge{        /* 一本のedge */
+typedef struct edge {        /* 一本のedge */
     Node* lhs;            /* nodeのアドレスを入れる場所 */
     Node* rhs;            /* nodeのアドレスを入れる場所 */
     float weight;
 } Edge;
 
-typedef struct nodevec{     /* nodeの縦方向のカタマリ */
+typedef struct nodevec {     /* nodeの縦方向のカタマリ */
     Node* node;
     Layer* next;
 } Layer;
 
-typedef struct Layer_vec{   /* "nodeの縦方向のカタマリ" の横方向のカタマリ */
+typedef struct Layer_vec {   /* "nodeの縦方向のカタマリ" の横方向のカタマリ */
     Layer* layer;
     Layer_vec* next;
 } Layer_vec;
 
-typedef struct edgevec{     /* "edgeの縦方向のカタマリ" の横方向のカタマリ */
+typedef struct edgevec {     /* "edgeの縦方向のカタマリ" の横方向のカタマリ */
     Edge** edge;
     Edge_layer* next;
 } Edge_layer;
