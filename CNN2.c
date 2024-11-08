@@ -16,9 +16,9 @@ typedef struct edge {        /* 一本のedge */
     float weight;
 } Edge;
 
-typedef struct nodevec {     /* nodeの縦方向のカタマリ */
+typedef struct Layer {     /* nodeの縦方向のカタマリ */
     Node* node;
-    struct nodevec* next;
+    struct Layer* next;
 } Layer;
 
 typedef struct Layer_vec {   /* "nodeの縦方向のカタマリ" の横方向のカタマリ */
@@ -26,15 +26,41 @@ typedef struct Layer_vec {   /* "nodeの縦方向のカタマリ" の横方向�
     struct Layer_vec* next;
 } Layer_vec;
 
-typedef struct edgevec {     /* "edgeの縦方向のカタマリ" の横方向のカタマリ */
+typedef struct Edge_layer {     /* "edgeの縦方向のカタマリ" の横方向のカタマリ */
     Edge** edge;          /* edgeの配列を指すポインタ */
-    struct edgevec* next;
+    struct Edge_layer* next;
 } Edge_layer;
 
 
 int main(void){
 
-    Node *n1 = malloc(sizeof(Node));          /* Nodeを記録する魔法の場所を確保 */   
+    Node ***nodes = malloc(sizeof(Node*) * 3);       /* Nodeを記録する魔法の場所を確保し、 */
+    for (int i = 0; i < 3; i++) {                    
+        Node** tmp = malloc(sizeof(Node) * 3);
+        for (int j = 0; j < 3; j++) {
+            tmp[j] = malloc(sizeof(Node));
+        }
+    }
+    int k = 2;                 /* 仮の値 */
+    for (int i = 0; i < 3; i++) {                    /* 構造体Nodeの n1 のメンバーvalueに 3 を代入（3は仮の値） */
+        for (int j = 0; j < 3; j++) {
+            nodes[i][j]->value = k + 1;
+            k = (k + 1) % 9;
+        }
+    }
+
+    /* nodes[0][0]->value = 3;
+    nodes[0][1]->value = 4;
+    nodes[0][2]->value = 5;
+    nodes[1][0]->value = 6;
+    nodes[1][1]->value = 7;
+    nodes[1][2]->value = 8;
+    nodes[2][0]->value = 9;
+    nodes[2][1]->value = 1;
+    nodes[2][2]->value = 2;
+    */
+
+    /* Node *n1 = malloc(sizeof(Node));            /* Nodeを記録する魔法の場所を確保 *   
     Node *n2 = malloc(sizeof(Node));
     Node *n3 = malloc(sizeof(Node));
     Node *n4 = malloc(sizeof(Node));
@@ -44,15 +70,7 @@ int main(void){
     Node *n8 = malloc(sizeof(Node));
     Node *n9 = malloc(sizeof(Node));
 
-    Layer *l1 = malloc(sizeof(Layer));        /* Nodeの縦のカタマリを記録する魔法の場所を確保 */
-    Layer *l2 = malloc(sizeof(Layer));
-    Layer *l3 = malloc(sizeof(Layer));
-
-    Layer_vec *lv1 = malloc(sizeof(Layer_vec));   /* "Nodeの縦方向のカタマリ" の横方向のカタマリを記録する魔法の場所を確保 */
-
-/* Node */
-
-    n1->value = 3;                            /*--- 構造体Nodeの n1 のメンバーvalueに 3 を代入（3は仮の値） ---*/
+    n1->value = 3;                            /*--- 構造体Nodeの n1 のメンバーvalueに 3 を代入（3は仮の値） ---*
     n2->value = 4;
     n3->value = 5;
     n4->value = 6;
@@ -60,50 +78,71 @@ int main(void){
     n6->value = 8;
     n7->value = 9;
     n8->value = 1;
-    n9->value = 2;
+    n9->value = 2;      */
+
+    Layer** layers = malloc(sizeof(Layer) * 3);         /* Nodeの縦のカタマリを記録する魔法の場所を確保 */
+    for (int i = 0; i < 3; i++) {
+        layers[i] = malloc(sizeof(Layer));
+    }
+
+    /*Layer *l1 = malloc(sizeof(Layer));        /* Nodeの縦のカタマリを記録する魔法の場所を確保 
+    Layer *l2 = malloc(sizeof(Layer));
+    Layer *l3 = malloc(sizeof(Layer));    */
+
+    Layer_vec *lv1 = malloc(sizeof(Layer_vec));   /* "Nodeの縦方向のカタマリ" の横方向のカタマリを記録する魔法の場所を確保 */
+
 
 /* Layer（nodevec） */
 
-    l1->node = n1;                           /* 構造体Layerの l1 のメンバーnodeに構造体Nodeの n1 を代入 */
-    l1->next = l1;                           /*構造体Layerの l1 のメンバーnextに構造体Layerの l1を代入 */
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 3; j++) {
+            layers[i]->node = nodes[i][j];         /* 構造体Layerの l1 のメンバーnodeに構造体Nodeの n1 を代入 */
+            layers[i]->next = layers[i]; 
+        }
+        lv1->layer = layers[i];                     /* 構造体Layer_vecの lv1 のメンバーlayerに構造体Layerの l1を代入 */
+        lv1->next = lv1;                            /*構造体Layer_vecの lv1 のメンバーnextに構造体Layer_vecの lv1を代入 */
+    }
 
-    l1->node = n2;
+    /* 1->node = nodes[0][0];                           /* 構造体Layerの l1 のメンバーnodeに構造体Nodeの n1 を代入 *
+    l1->next = l1;                           /*構造体Layerの l1 のメンバーnextに構造体Layerの l1を代入 *
+
+    l1->node = nodes[0][1];
     l1->next = l1;
 
-    l1->node = n3;
+    l1->node = nodes[0][2];
     l1->next = l1;
 
 
-    l2->node = n4;                           /* 構造体Layerの l2 のメンバーnodeに構造体Nodeの n4 を代入 */
-    l2->next = l2;                           /*構造体Layerの l2 のメンバーnextに構造体Layerの l2を代入 */
+    l2->node = nodes[1][0];                           /* 構造体Layerの l2 のメンバーnodeに構造体Nodeの n4 を代入 *
+    l2->next = l2;                           /*構造体Layerの l2 のメンバーnextに構造体Layerの l2を代入 *
 
-    l2->node = n5;
+    l2->node = nodes[1][1];
     l2->next = l2;
 
-    l2->node = n6;
+    l2->node = nodes[1][2];
     l2->next = l2;
 
 
-    l3->node = n7;                           /* 構造体Layerの l3 のメンバーnodeに構造体Nodeの n7 を代入 */
-    l3->next = l3;                           /*構造体Layerの l3 のメンバーnextに構造体Layerの l3を代入 */
+    l3->node = nodes[2][0];                           /* 構造体Layerの l3 のメンバーnodeに構造体Nodeの n7 を代入 *
+    l3->next = l3;                           /*構造体Layerの l3 のメンバーnextに構造体Layerの l3を代入 *
 
-    l3->node = n8;
+    l3->node = nodes[2][1];
     l3->next = l3;
 
-    l3->node = n9;
-    l3->next = l3;
+    l3->node = nodes[2][2];
+    l3->next = l3;            */
 
 
 /* Layer_vec */
 
-    lv1->layer = l1;                          /* 構造体Layer_vecの lv1 のメンバーlayerに構造体Layerの l1を代入 */
-    lv1->next = lv1;                          /*構造体Layer_vecの lv1 のメンバーnextに構造体Layer_vecの lv1を代入 */
+/*    lv1->layer = l1;                          /* 構造体Layer_vecの lv1 のメンバーlayerに構造体Layerの l1を代入 *
+    lv1->next = lv1;                          /*構造体Layer_vecの lv1 のメンバーnextに構造体Layer_vecの lv1を代入 *
 
     lv1->layer = l2;
     lv1->layer = lv1;
 
     lv1->layer = l3;
-    lv1->layer = lv1;
+    lv1->layer = lv1;   */
 
 
     int i = 0;
