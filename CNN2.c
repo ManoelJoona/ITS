@@ -27,7 +27,7 @@ typedef struct Layer_vec{   /* "nodeの縦方向のカタマリ" の横方向の
 } Layer_vec;
 
 typedef struct edgevec{     /* "edgeの縦方向のカタマリ" の横方向のカタマリ */
-    Edge** edge;
+    Edge** edge;          /* edgeの配列を指すポインタ */
     Edge_layer* next;
 } Edge_layer;
 
@@ -68,11 +68,12 @@ int main(void){
 
 
     int i = 0;
-    Node *lhs;
-    Node *rhs;
-    Edge_layer *head;
-    Edge_layer *tail;
-    while (lhs != NULL && rhs != NULL) {     /* lhsとrhsのどちらかがNALLならばループを終了 */
+    // Node *lhs;
+    // Node *rhs;
+    // Edge_layer *head;
+    // Edge_layer *tail;
+    // while (lhs != NULL && rhs != NULL) {     /* lhsとrhsのどちらかがNULLならばループを終了 */
+    while () {
         Edge *e = malloc(sizeof(Edge));
         Node *lhs = malloc(sizeof(Node));
         Node *rhs = malloc(sizeof(Node));
@@ -82,7 +83,7 @@ int main(void){
         e->lhs = lhs;
         e->rhs = rhs;
 
-        tail->next = tail;
+        // tail->next = tail;
 
         i++;
     }
@@ -92,9 +93,10 @@ int main(void){
     Edge_layer *el1 = malloc(sizeof(Edge_layer));
     Edge_layer *el2 = malloc(sizeof(Edge_layer));
 
-    el1->edge = e1;
-    el2->edge = e2;
+    el1->edge = e;
+    el2->edge = e;
 
     el1->next = el2;
 
+    
 }
