@@ -71,7 +71,7 @@ int main(void){
 
     int i, j;
     Edge_layer* el = malloc(sizeof(Edge_layer));      /* "edgeの縦方向のカタマリ" の横方向のカタマリを記録する魔法の場所を確保 */
-    int Edge_group[9];                                /* edgeの層（縦方向） */
+    Edge* Edge_group[9];                                /* edgeの層（縦方向） */
     Edge* e;
 
     for (i = 0; i < 2; i++) {
@@ -88,4 +88,33 @@ int main(void){
         el->edge = Edge_group;                           /* 構造体Edge_layerの el のメンバーedgeに配列Edge_groupを代入 */
         el->next = el;                                   /* 構造体Edge_layerの el のメンバーnextに構造体Edge_layerの elを代入 */
     }
+
+
+    /* Node のメモリ解放 */
+    for (int i = 0; i < 3; i++) {                    
+        for (int j = 0; j < 3; j++) {
+            free(nodes[i][j]);             /* 各 Node の解放 */
+        }
+        free(nodes[i]);                    /* 各 Node** の解放 */
+    }
+    free(nodes);                           /* Node*** の解放  */
+
+    /* Layer のメモリ解放 */
+    for (int i = 0; i < 3; i++) {
+        free(layers[i]);                   /* 各 Layer の解放 */
+    }
+    free(layers);                          /* Layer** の解放 */
+
+    /* Layer_vec のメモリ解放 */
+    free(lv1);                             /* Layer_vec の解放 */
+
+    /* Edge のメモリ解放 */
+    for (int i = 0; i < 9; i++) {
+        free(Edge_group[i]);               /* 各 Edge の解放 */
+    }
+
+    /* Edge_layer のメモリ解放 */
+    free(el);                              /* Edge_layer の解放 */
+
+    return 0;
 }
