@@ -18,17 +18,17 @@ typedef struct edge {        /* 一本のedge */
 
 typedef struct nodevec {     /* nodeの縦方向のカタマリ */
     Node* node;
-    Layer* next;
+    struct Layer* next;
 } Layer;
 
 typedef struct Layer_vec {   /* "nodeの縦方向のカタマリ" の横方向のカタマリ */
     Layer* layer;
-    Layer_vec* next;
+    struct Layer_vec* next;
 } Layer_vec;
 
 typedef struct edgevec {     /* "edgeの縦方向のカタマリ" の横方向のカタマリ */
     Edge** edge;
-    Edge_layer* next;
+    struct Edge_layer* next;
 } Edge_layer;
 
 
