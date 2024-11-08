@@ -28,7 +28,7 @@ typedef struct Layer_vec {   /* "nodeの縦方向のカタマリ" の横方向�
 
 typedef struct edgevec {     /* "edgeの縦方向のカタマリ" の横方向のカタマリ */
     Edge** edge;
-    struct Edge_layer* next;
+    struct edgevec* next;
 } Edge_layer;
 
 
