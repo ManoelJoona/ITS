@@ -16,7 +16,7 @@ typedef struct edge {        /* 一本のedge */
     float weight;
 } Edge;
 
-typedef struct nodevec {     /* nodeの縦方向のカタマリ */
+typedef struct Layer {     /* nodeの縦方向のカタマリ */
     Node* node;
     struct Layer* next;
 } Layer;
